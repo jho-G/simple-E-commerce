@@ -1,0 +1,80 @@
+{% extends 'store/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{ product.name }} - Local Store{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+        </div>
+        <div class="col-md-6">
+            <h1>{{ product.name }}</h1>
+            <p class="text-muted">Category: {{ product.category.name }}</p>
+            <h2 class="text-primary">${{ product.price }}</h2>
+            <div class="mb-3">
+                <span class="badge {% if product.stock > 0 %}bg-success{% else %}bg-danger{% endif %}">
+                    {% if product.stock > 0 %}In Stock{% else %}Out of Stock{% endif %}
+                </span>
+            </div>
+            <p>{{ product.description }}</p>
+            
+            {% if product.stock > 0 %}
+            <form action="{% url 'store:add_to_cart' product.id %}" method="post" class="mb-3">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="fas fa-cart-plus"></i> Add to Cart
+                </button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Reviews Section -->
+    <div class="row mt-5">
+        <div class="col-md-8">
+            <h3>Customer Reviews</h3>
+            {% for review in reviews %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between">
+                        <h5 class="card-title">{{ review.user.username }}</h5>
+                        <div class="text-warning">
+                            {% for i in "12345" %}
+                            {% if forloop.counter <= review.rating %}
+                            <i class="fas fa-star"></i>
+                            {% else %}
+                            <i class="far fa-star"></i>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <p class="card-text">{{ review.comment }}</p>
+                    <small class="text-muted">{{ review.created|date:"F d, Y" }}</small>
+                </div>
+            </div>
+            {% empty %}
+            <p>No reviews yet. Be the first to review this product!</p>
+            {% endfor %}
+        </div>
+        
+        {% if user.is_authenticated %}
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Write a Review</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ review_form|crispy }}
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
