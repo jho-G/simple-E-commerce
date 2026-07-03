@@ -58,3 +58,5 @@ htmlcov/
 
 # Secret key file
 secret.key
+
+/.claude/
