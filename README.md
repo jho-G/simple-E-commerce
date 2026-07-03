@@ -1,6 +1,6 @@
-# PRODIGY_FS_03 — Django E-Commerce Store
+#  Django E-Commerce Store
 
-A full-featured e-commerce web application built with **Django**, featuring product browsing, shopping cart, order management, user authentication, product reviews, and a staff admin dashboard.
+A Django-based e-commerce web application focused on backend development. It includes user authentication, product browsing, shopping cart, order management, product reviews, and a staff admin dashboard. The frontend is built using Django templates with a simple, functional interface, as the primary focus of the project is backend architecture and business logic.
 
 ---
 
