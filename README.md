@@ -154,4 +154,4 @@ ALLOWED_HOSTS = ['yourdomain.com']
 
 ## License
 
-This project was built as part of the **Prodigy InfoTech Full-Stack Development Internship** (Task 03).
+This project was built as part of the pre internship project at Tila health and Insurance 
